@@ -1,0 +1,25 @@
+This is a config utility for a specific firewall/proxy/dhcp server configuration running on Slackware. You are free to try to make sense of it and modify it to work for your own server if you feel the need to.
+
+In this case the server in question is running Squid as proxy, Dansguardian as the proxy filter, dhcpd for DHCP and the routing/firewall is done via iptables.
+
+The main menu is very self explanatory, but written in Portuguese. No translations are going to be provided.
+
+This utility is not entirely fool proof, so be careful if you're going to use it. Back up your stuff.
+
+It needs to run as root because:
+It needs to be able to edit config files that should only be editable by the root user.
+It needs to restart the dhcpd service for the changes in dhcpd.conf to take effect.
+
+I'm not sure if it needs root to tell dansguardian to reload its config or to modify iptables, but it really doesn't matter. just run as root.
+
+This utility does not support dansguardian configurations where an IP can be / is assigned to more than one access groups. This is intended.
+
+Current features:
+
+DHCP add entry - Adds a new static ip entry to dhcpd.conf. Including a hostname, a MAC address and an IP address.
+DHCP delete entry - Receives an IP address or MAC address from the user, looks for its entry in dhcpd.conf and deletes it.
+DHCP edit entry - receives an IP/MAC address from the user and the new desired IP/MAC address. Searches the config file for that exact match and replaces it with the new value. (Type either an old IP and then a new IP or an old MAC and then a new MAC, don't mix it up!)
+
+Dansguardian check group - Checks the access group for a given IP on the filtergroupslist file.
+Dansguardian assign group - Assigns an access group for a given IP on the filtergroupslist file. If the IP is already assigned to another group, the old entry is automatically deleted. If the IP is already on the desired group, nothing is done.
+Dansguardian unassign group - Receives an IP address from the user and deletes any assignments this IP has on the filtergroupslist file.
