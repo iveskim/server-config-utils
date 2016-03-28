@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 import subprocess
 from dans_editor import Danseditor
 from dhcp_editor import DHCPeditor
