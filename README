@@ -31,4 +31,4 @@ MAC blocking and unblocking - Possibility to allow or deny specific MAC addresse
 To be added Soon™ (maybe never):
 
 DHCP delete/edit entry - Add support for manipulating entries via hostname when deleting/editing dhcpd.conf entries.
-TUI = Use a well-made Text User Interface instead of this mediocre CLI.
+TUI - Use a well-made Text User Interface instead of this mediocre CLI.
