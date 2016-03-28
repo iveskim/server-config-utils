@@ -2,16 +2,22 @@ import subprocess
 from dans_editor import Danseditor
 from dhcp_editor import DHCPeditor
 
+#this is a dict that formats group number codes to human readable text:
 group_formatting = {'0':'Nenhum grupo atribuído', '1':'Erro no arquivo de configuracão. Favor checar os grupos manualmente.', 
 '2':'Grupo Lista Negra', '3':'Grupo Diretoria', '4':'Grupo Lista Branca', '5':'Grupo Youtube'}
 
 path_to_dans_config = '/home/eti/server_config_util/filtergroupslist' #change this to your dansguardian filtergroupslist file location
 path_to_dhcp_config = '/home/eti/server_config_util/dhcpd.conf' #change this to your dhcpd.conf file location
-ignore_main = False
+
+ignore_main = False #used for situations where you want to ignore the main menu and go straight into a specific submenu
+
+#these two bools are used to decide whether to reload dansguardian configs and restart dhcpd or not:
 reload_dans = False
 restart_dhcpd = False
 
 while True:
+	#todo: include option to add a MAC address to iptables where this MAC can ignore Squid proxy entirely.
+
 	if not ignore_main:
 		print('Bem-vindo ao utilitário de configuração do servidor.\nDigite o número correspondente ao serviço que deseja configurar:\n')
 		print('1 - DHCP\n2 - Dansguardian\n3 - Sair\n')
@@ -96,16 +102,13 @@ while True:
 			input()
 			ignore_main = True
 
-		#elif dans_selection == 4:
-			#ignore_main = True
-
-
 	elif main_selection == '3':
 		if reload_dans:
 			subprocess.call(['dansguardian', '-r'])
 		if restart_dhcpd:
 			subprocess.call(['/etc/rc.d/rc.dhcpd', 'restart']) #this restarts the dhcpd service on Slackware. You need to change the command according to your init system. e.g for systemd it would be 'systemctl', 'restart', 'dhcpd.service'.
 		exit()
+
 
 
 

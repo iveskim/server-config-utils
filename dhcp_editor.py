@@ -49,9 +49,6 @@ class DHCPeditor:
 
 		return 0
 
-#do we need anything else?
-
-
 
 
 

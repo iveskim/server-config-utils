@@ -11,7 +11,7 @@ class Danseditor:
 			intext = assignments_list.readlines()
 			for line in intext:
 				if line.find(ip) != -1:
-					group = line[-2:].replace('\n', '').replace('r', '')
+					group = line[-2:].replace('\n', '').replace('r', '') #this is a bit lazy and seems intuitively unreliable, but i can't find a case where it doesn't work, so.
 					break
 
 		return group
@@ -28,7 +28,7 @@ class Danseditor:
 
 		with open(self.groups_config_file, 'w') as assignments:
 			for line in intext:
-				assignments.write(line) #rewrites file. this may not work.
+				assignments.write(line)
 
 
 	def assign_group(self, ip, group):
@@ -48,7 +48,7 @@ class Danseditor:
 
 		with open(self.groups_config_file, 'w') as assignments:
 			for line in intext:
-				assignments.write(line) #rewrites file. this may not work.
+				assignments.write(line)
 
 		return 0
 
