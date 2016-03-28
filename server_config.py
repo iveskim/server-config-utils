@@ -105,7 +105,7 @@ while True:
 		if reload_dans:
 			subprocess.call(['dansguardian', '-r'])
 		if restart_dhcpd:
-			subprocess.call(['/etc/rc.d/rc.dhcpd', 'restart'])
+			subprocess.call(['/etc/rc.d/rc.dhcpd', 'restart']) #this restarts the dhcpd service on Slackware. You need to change the command according to your init system. e.g for systemd it would be 'systemctl', 'restart', 'dhcpd.service'.
 		exit()
 
 
