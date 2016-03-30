@@ -15,12 +15,15 @@ ignore_main = False #used for situations where you want to ignore the main menu 
 reload_dans = False
 restart_dhcpd = False
 
+#this is the index where to add MAC entries in the FORWARD table in iptables.
+iptables_mac_index = '13'
+
 while True:
 	#todo: include option to add a MAC address to iptables where this MAC can ignore Squid proxy entirely.
 
 	if not ignore_main:
 		print('Bem-vindo ao utilitário de configuração do servidor.\nDigite o número correspondente ao serviço que deseja configurar:\n')
-		print('1 - DHCP\n2 - Dansguardian\n3 - Sair\n')
+		print('1 - DHCP\n2 - Dansguardian\n3 - Bloqueio/desbloqueio de MACs\n4 - Sair\n')
 		main_selection = input('Seleção: ')
 
 	ignore_main = False
@@ -103,6 +106,35 @@ while True:
 			ignore_main = True
 
 	elif main_selection == '3':
+		print('Essa opção serve para permitir MACs específicos a ignorar o proxy e ter acesso direto à internet.\nSe algum usuário precisa de permissões de acesso mais liberais, é sempre indicado fazer isso pelo filtro Dansguardian e não por aqui. Usar somente em caso de exceções.\n')
+		print('Selecione uma opção:\n1 - Listar MACs desbloqueados\n2 - Desbloquear MAC\n3 - Bloquear MAC\n4 - Voltar ao menu anterior\n')
+		mac_selection = input('Seleção: ')
+
+		if mac_selection == '1':
+			print()
+			out = subprocess.check_output (['iptables', '-L']).decode('utf-8')
+			for line in out.splitlines():
+				if line.find('MAC') != -1 and line.count('anywhere') == 2:
+					print(line[-17:])
+
+			ignore_main = True
+			input()
+
+		elif mac_selection == '2':
+			mac = input('Digite o MAC a ser liberado: ')
+			subprocess.call(['iptables', '-I', 'FORWARD', iptables_mac_index, '-p', 'all', '-m', 'mac', '--mac-source', mac, '-j', 'ACCEPT'])
+			print('MAC liberado.')
+			ignore_main = True
+			input()
+
+		elif mac_selection == '3':
+			mac = input('Digite o MAC a ser bloqueado: ')
+			subprocess.call(['iptables', '-D', 'FORWARD', '-p', 'all', '-m', 'mac', '--mac-source', mac, '-j', 'ACCEPT'])
+			print('MAC bloqueado.')
+			ignore_main = True
+			input()
+
+	elif main_selection == '4':
 		if reload_dans:
 			subprocess.call(['dansguardian', '-r'])
 		if restart_dhcpd:

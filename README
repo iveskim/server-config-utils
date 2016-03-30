@@ -24,9 +24,13 @@ Dansguardian check group - Checks the access group for a given IP on the filterg
 Dansguardian assign group - Assigns an access group for a given IP on the filtergroupslist file. If the IP is already assigned to another group, the old entry is automatically deleted. If the IP is already on the desired group, nothing is done.
 Dansguardian unassign group - Receives an IP address from the user and deletes any assignments this IP has on the filtergroupslist file.
 
+List unblocked MACs - List MAC addresses that are allowed to bypass the proxy server as configured in iptables.
+MAC unblock - Adds an entry in iptables that allows a specific MAC informed by the user to bypass the proxy server.
+MAC block - Removes a specific entry in iptables that allows a MAC to bypass the proxy server. 
+
 To be added soon:
 
-MAC blocking and unblocking - Possibility to allow or deny specific MAC addresses to bypass Squid. Done via iptables.
+Automatic Backup - Automatic creation of backups every time the utility is started and deletion of backups older than a week.
 
 To be added Soon™ (maybe never):
 
