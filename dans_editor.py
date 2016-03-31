@@ -8,10 +8,10 @@ class Danseditor:
 	def check_group(self, ip):
 		group = '0'
 		with open(self.groups_config_file, 'r') as assignments_list:
-			intext = assignments_list.readlines()
+			intext = assignments_list.read().splitlines()
 			for line in intext:
 				if line.find(ip) != -1:
-					group = line[-2:].replace('\n', '').replace('r', '') #this is a bit lazy and seems intuitively unreliable, but i can't find a case where it doesn't work, so.
+					group = line[-1:]
 					break
 
 		return group
@@ -39,16 +39,21 @@ class Danseditor:
 
 		intext = []
 		with open(self.groups_config_file, 'r') as assignments_list:
-			intext = assignments_list.readlines()
+			intext = assignments_list.read().splitlines()
 
-		for i in range(len(intext)):
-			if (intext[i].find('#') == -1 and intext[i][-2:].replace('\n', '').replace('r', '') == group):
-				intext.insert(i, ip+'=filter'+group+'\n')
+		for i in range(len(intext)): #Tries to organize new entry insertion according to comments or existing entries, adds the new entry at end of file on failure.
+			if (intext[i].find('# F'+group) != -1):
+				intext.insert(i+1, ip+'=filter'+group)
 				break
+			elif (intext[i].find('#') == -1 and intext[i][-1:] == group):
+				intext.insert(i, ip+'=filter'+group)
+				break
+			elif(i == len(intext)-1):
+				intext.append(ip+'=filter'+group)
 
 		with open(self.groups_config_file, 'w') as assignments:
 			for line in intext:
-				assignments.write(line)
+				assignments.write(line+'\n')
 
 		return 0
 
