@@ -16,7 +16,7 @@ reload_dans = False
 restart_dhcpd = False
 
 #this is the index where to add MAC entries in the FORWARD table in iptables.
-iptables_mac_index = '13'
+iptables_mac_index = '1'
 
 while True:
 
