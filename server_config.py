@@ -6,8 +6,8 @@ from dhcp_editor import DHCPeditor
 group_formatting = {'0':'Nenhum grupo atribuído', '1':'Erro no arquivo de configuracão. Favor checar os grupos manualmente.', 
 '2':'Grupo Lista Negra', '3':'Grupo Diretoria', '4':'Grupo Lista Branca', '5':'Grupo Youtube'}
 
-path_to_dans_config = '/home/eti/server_config_util/filtergroupslist' #change this to your dansguardian filtergroupslist file location
-path_to_dhcp_config = '/home/eti/server_config_util/dhcpd.conf' #change this to your dhcpd.conf file location
+path_to_dans_config = '/etc/dansguardian/filtergroupslist' #change this to your dansguardian filtergroupslist file location
+path_to_dhcp_config = '/etc/dhcpd.conf' #change this to your dhcpd.conf file location
 
 ignore_main = False #used for situations where you want to ignore the main menu and go straight into a specific submenu
 
