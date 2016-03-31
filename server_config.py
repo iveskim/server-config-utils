@@ -19,7 +19,6 @@ restart_dhcpd = False
 iptables_mac_index = '13'
 
 while True:
-	#todo: include option to add a MAC address to iptables where this MAC can ignore Squid proxy entirely.
 
 	if not ignore_main:
 		print('Bem-vindo ao utilitário de configuração do servidor.\nDigite o número correspondente ao serviço que deseja configurar:\n')
@@ -140,7 +139,3 @@ while True:
 		if restart_dhcpd:
 			subprocess.call(['/etc/rc.d/rc.dhcpd', 'restart']) #this restarts the dhcpd service on Slackware. You need to change the command according to your init system. e.g for systemd it would be 'systemctl', 'restart', 'dhcpd.service'.
 		exit()
-
-
-
-
