@@ -5,11 +5,11 @@ class DHCPeditor:
 	def __init__(self, config_file_path):
 		self.config_file = config_file_path
 	
-	def add_entry(self, hostname, ip, mac): #this works for sure
+	def add_entry(self, hostname, ip, mac):
 		with open(self.config_file, 'a') as dhcp_list:
 			dhcp_list.write('\n\thost ' + hostname + ' {\n\thardware ethernet '+ mac + ';\n\tfixed-address '+ ip + '; }\n')
 	
-	def delete_entry(self, entry): #this works as far as I could test. it can delete entries either by ip or by mac. IT CANNOT DELETE ANYTHING BY HOSTNAME.
+	def delete_entry(self, entry): #Can delete entries either by ip or by mac. IT CANNOT DELETE ANYTHING BY HOSTNAME.
 		intext = []
 		with open(self.config_file, 'r') as dhcp_list:
 			intext = dhcp_list.readlines()
@@ -31,10 +31,11 @@ class DHCPeditor:
 
 		with open(self.config_file, 'w') as dhcp_file:
 			for line in intext:
-				dhcp_file.write(line) #this works
+				dhcp_file.write(line)
 
-
-	def edit_entry(self, old, new): #okay so to keep it simple: all this does is look for an IP or a mac and replace it with a new one. it doesnt even change the hostname, i'll add that soon (never).
+	 			
+	def edit_entry(self, old, new): #This looks for an IP or a mac and replace it with a new one.
+	#It doesn't change the hostname, so if you want to change something it's better to remove an entry and add a new one.
 		intext=''
 		with open(self.config_file, 'r') as dhcp_list:
 			intext = dhcp_list.read()
@@ -42,7 +43,7 @@ class DHCPeditor:
 		if intext.find(old) == -1:
 			return 1
 
-		intext = intext.replace(old, new, 1) #this might go very wrong. only if the user fucks up tho, afaik.
+		intext = intext.replace(old, new, 1) #As seen here, it finds a substring in the file and replaces it, so be careful when using it.
 			
 		with open(self.config_file, 'w') as dhcp_list:
 			dhcp_list.write(intext)
