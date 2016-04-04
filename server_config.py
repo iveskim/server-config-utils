@@ -113,14 +113,15 @@ while True:
 			print()
 			out = subprocess.check_output (['iptables', '-L']).decode('utf-8')
 			for line in out.splitlines():
-				if line.find('MAC') != -1 and line.count('anywhere') == 2:
-					print(line[-17:])
+				if line.find('MAC') != -1 and line.count('anywhere') == 2 and line.find('tcp dpt') == -1:
+					print(line[-18:])
 
 			ignore_main = True
 			input()
 
 		elif mac_selection == '2':
 			mac = input('Digite o MAC a ser liberado: ')
+			mac = mac.upper()
 			subprocess.call(['iptables', '-I', 'FORWARD', iptables_mac_index, '-p', 'all', '-m', 'mac', '--mac-source', mac, '-j', 'ACCEPT'])
 			print('MAC liberado.')
 			ignore_main = True
@@ -128,6 +129,7 @@ while True:
 
 		elif mac_selection == '3':
 			mac = input('Digite o MAC a ser bloqueado: ')
+			mac = mac.upper()
 			subprocess.call(['iptables', '-D', 'FORWARD', '-p', 'all', '-m', 'mac', '--mac-source', mac, '-j', 'ACCEPT'])
 			print('MAC bloqueado.')
 			ignore_main = True
