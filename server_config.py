@@ -16,7 +16,7 @@ reload_dans = False
 restart_dhcpd = False
 
 #this is the index where to add MAC entries in the FORWARD table in iptables.
-iptables_mac_index = '1'
+iptables_mac_index = '13'
 
 while True:
 
@@ -113,11 +113,7 @@ while True:
 			print()
 			out = subprocess.check_output (['iptables', '-L']).decode('utf-8')
 			for line in out.splitlines():
-<<<<<<< HEAD
 				if line.find('MAC') != -1 and line.count('anywhere') == 2 and line.find('tcp dpt') == -1:
-=======
-				if line.find('MAC') != -1 and line.count('anywhere') == 2:
->>>>>>> master
 					print(line[-18:])
 
 			ignore_main = True
