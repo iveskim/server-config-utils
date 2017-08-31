@@ -1,6 +1,6 @@
 This is a config utility for a specific firewall/proxy/dhcp server configuration running on Slackware. You are free to try to make sense of it and modify it to work for your own server if you feel the need to.
 
-In this case the server in question is running Squid as proxy, Dansguardian as the proxy filter, dhcpd for DHCP and the routing/firewall is done via iptables.
+In this case the server in question is running Squid as proxy, Dansguardian as the proxy filter, isc-dhcp for DHCP and the routing/firewall is done via iptables.
 
 The main menu is very self explanatory, but written in Portuguese. No translations are going to be provided.
 
